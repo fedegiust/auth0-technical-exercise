@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  img(src="#{pageData.user.picture}")
+  h2 Welcome #{pageData.user.nickname}!
+  br
+  h3 This is the list of rules on your account
+  div
+    table
+        thead
+            tr.head
+                th Order
+                th Id
+                th Application Name
+                th Enabled
+        tbody
+            for appName in pageData.appNames
+                tr
+                    td #{appName.order}
+                    td #{appName.id}
+                    td #{appName.name}
+                    td #{appName.enabled}
+
+  br
+  a(href='/logout') Logout
