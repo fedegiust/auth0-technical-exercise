@@ -52,12 +52,12 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
                             // The result can be accessed through the `m`-variable.
                             m.forEach((match, groupIndex) => {
                                 if(groupIndex === 2){
-                                    appNames.push({ order: rule.order, id: rule.id, enabled: rule.enabled, name: match});
+                                    appNames.push({ order: rule.order, id: rule.id, enabled: rule.enabled, appName: match, name: rule.name});
                                 }
                             });
                         }
                     } else {
-                        appNames.push({ order: rule.order, id: rule.id, enabled: rule.enabled, name: 'Generic rule'});
+                        appNames.push({ order: rule.order, id: rule.id, enabled: rule.enabled, appName: 'Generic rule', name: rule.name});
                     }
                 }
                 next(err, appNames);
