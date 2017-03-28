@@ -8,12 +8,20 @@ var request = require('request');
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 var router = express.Router();
 
+var env = {
+  AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+  AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
+  AUTH0_CALLBACK_URL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback'
+};
+
 /* GET user profile. */
 router.get('/', ensureLoggedIn, function(req, res, next) {
+
+
     sequence
         .then(function (next) {
             let options = { method: 'POST',
-                url: 'https://federico.auth0.com/oauth/token',
+                url: 'https://' + env.AUTH0_DOMAIN + '/oauth/token',
                 headers: { 'content-type': 'application/json' },
                 body: '{"client_id":"yMl69DXKUoJl3VhjIa66uQO2S2LIKdL7","client_secret":"1i8myRHMSeAd4tuppF8gLXcB6aYToZeF8Z7LrGHKNzgAYeUlqD-j2zPLf12Mny-N","audience":"https://federico.auth0.com/api/v2/","grant_type":"client_credentials"}' };
             request(options, function (error, response, body) {
@@ -24,7 +32,7 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
         })
         .then(function (next, err, a, b) {
             let options = { method: 'GET',
-                url: 'http://federico.auth0.com/api/v2/rules',
+                url: 'https://' + env.AUTH0_DOMAIN + '/api/v2/rules',
                 headers: { authorization: 'Bearer ' + a } };
             request(options, function (error, response, body) {
                 if (error) throw new Error(error);
