@@ -6,10 +6,13 @@ By default all your users will get access to this application, so remember to wh
 
 For example
 
-|Order | Id	                 | Rule Name                                       | Application Name	 | Enabled |
+|Order | Id	                 | Rule Name                                       | Application Name	   | Enabled |
 |------|---------------------|-------------------------------------------------|---------------------|---------|
-|1	   |rul_3ZtKKXLeeCBJeqic | Email domain whitelist                          |Generic rule	     | false   |
+|1	   |rul_3ZtKKXLeeCBJeqic | Email domain whitelist                          |Generic rule	       | false   |
 |2	   |rul_T2PBFgEm2E6EaJJO | Allow Access during weekdays for a specific App |TheAppToCheckAccessTo| true    |
+
+Here's a short video showing the app in use.
+https://www.useloom.com/share/b11630f5ad3d436ebbf0735211d8b7c9
 
 ## Requirements
 
