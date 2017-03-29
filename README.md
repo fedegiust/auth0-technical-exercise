@@ -4,7 +4,14 @@ This solution gives you on screen a list of Rules per auth0 account. Since the r
 
 By default all your users will get access to this application, so remember to whitelist them accordingly, using the Rules in your account.
 
-For example
+Sample of the list of Applications
+
+| Name                     | Description               |
+|--------------------------|---------------------------|
+| Default App              |                           |
+| My 1st App               | My First Client           |
+
+Sample of the list of rules
 
 |Order | Id	                 | Rule Name                                       | Application Name	   | Enabled |
 |------|---------------------|-------------------------------------------------|---------------------|---------|
