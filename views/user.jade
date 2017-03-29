@@ -4,6 +4,19 @@ block content
   img(src="#{pageData.user.picture}")
   h2 Welcome #{pageData.user.nickname}!
   br
+  h3 Here's the list of Applications on your account
+  div
+    table
+        thead
+            tr.head
+                th Name
+                th Description
+        tbody
+            for app in pageData.apps
+                tr
+                    td #{app.name}
+                    td #{app.description}
+  br
   h3 Here's the list of rules on your account
   div
     table

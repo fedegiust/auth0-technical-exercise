@@ -30,10 +30,25 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
                 next(err, jsonBody.access_token);
           });
         })
-        .then(function (next, err, a, b) {
+        .then(function (next, err, access_token) {
+            let options = { method: 'GET',
+                url: 'https://' + env.AUTH0_DOMAIN + '/api/v2/clients?fields=name,description',
+                headers: { authorization: 'Bearer ' + access_token } };
+            request(options, function (error, response, body) {
+                if (error) throw new Error(error);
+                clients = JSON.parse(body);
+                let apps = [];
+                for(let client of clients) {
+                    apps.push({ name: client.name, description: client.description });
+                }
+                next(err, access_token, apps);
+            });
+
+        })
+        .then(function (next, err, access_token, apps) {
             let options = { method: 'GET',
                 url: 'https://' + env.AUTH0_DOMAIN + '/api/v2/rules',
-                headers: { authorization: 'Bearer ' + a } };
+                headers: { authorization: 'Bearer ' + access_token } };
             request(options, function (error, response, body) {
                 if (error) throw new Error(error);
                 body = JSON.parse(body);
@@ -60,11 +75,11 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
                         appNames.push({ order: rule.order, id: rule.id, enabled: rule.enabled, appName: 'Generic rule', name: rule.name});
                     }
                 }
-                next(err, appNames);
+                next(err, appNames, apps);
             });
         })
-        .then(function (next, err, a, b) {
-            res.render('user', { pageData: { user: req.user, appNames: a } });
+        .then(function (next, err, appNames, apps) {
+            res.render('user', { pageData: { user: req.user, appNames: appNames , apps: apps} });
         });
 });
 
